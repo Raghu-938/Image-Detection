@@ -12,9 +12,51 @@ This project implements a Convolutional Neural Network (CNN) to classify images 
 - [Prediction](#prediction)
 - [License](#license)
 
-## Installation
 
-To run this project, you'll need the following libraries installed in your Python environment:
+## Dataset
+The dataset consists of images organized into two folders:
 
-```bash
-pip install tensorflow numpy
+- **Training**: Contains training images for each animal category.
+- **Testing**: Contains testing images for validation.
+
+Make sure to unzip the `Animal_Dataset.zip` file and place it in the correct directory.
+## Model Architecture
+
+The CNN architecture consists of:
+
+- **Convolutional Layer**: 
+  - 32 filters of size 3x3, using ReLU activation.
+
+- **Max Pooling Layer**: 
+  - Pool size of 2x2 to reduce dimensionality.
+
+- **Flatten Layer**: 
+  - Converts 2D matrices to 1D.
+
+- **Dense Layers**: 
+  - Two hidden layers with 300 and 150 neurons respectively, followed by a softmax output layer for multi-class classification.
+
+# Training
+
+The model is trained with the following parameters:
+
+- **Optimizer:** Adam
+
+- **Loss Function:** Categorical Crossentropy
+
+- **Metrics:** Accuracy
+ 
+- **Number of Epochs:** 10
+
+# License
+
+Copyright (c) [year] [your name or organization]
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+1. The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+2. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+
