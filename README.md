@@ -1,61 +1,93 @@
-# Animal Image Detection Using CNN
+
+# Animal Image Detection System
 
 ## Overview
-This project implements a Convolutional Neural Network (CNN) to classify images of animals into four categories: bears, crows, elephants, and rats. The model is built using TensorFlow and Keras, and it utilizes data augmentation techniques to improve generalization.
+This project implements an image detection system using Convolutional Neural Networks (CNN) to classify images of different animals. The model is trained to recognize four classes: Bears, Crows, Elephants, and Rats.
 
 ## Table of Contents
-- [Installation](#installation)
+- [Requirements](#requirements)
 - [Dataset](#dataset)
+- [Installation](#installation)
 - [Usage](#usage)
 - [Model Architecture](#model-architecture)
 - [Training](#training)
+- [Prediction](#prediction)
 - [License](#license)
 
+## Requirements
+- Python 3.x
+- TensorFlow
+- Keras
+- NumPy
+- Matplotlib (optional for visualization)
+- Google Colab (optional for cloud execution)
 
 ## Dataset
-The dataset consists of images organized into two folders:
+The dataset consists of images categorized into training and testing directories:
+- `Training`: Contains images for training the model.
+- `Testing`: Contains images for evaluating the model's performance.
 
-- **Training**: Contains training images for each animal category.
-- **Testing**: Contains testing images for validation.
+Make sure to unzip the dataset using:
+```bash
+!unzip 'Animal_Dataset.zip'
+```
 
-Make sure to unzip the `Animal_Dataset.zip` file and place it in the correct directory.
+## Installation
+To set up the environment, you can run the following commands in a Google Colab notebook:
+
+```python
+from google.colab import drive
+drive.mount('/content/drive')
+```
+
+## Usage
+1. **Data Augmentation**: The training images are augmented using the `ImageDataGenerator` class from Keras, which applies rescaling, zooming, and horizontal flipping.
+2. **Model Building**: A Sequential CNN model is constructed with:
+   - Convolutional layer
+   - Max pooling layer
+   - Flattening layer
+   - Fully connected layers with ReLU activation
+   - Output layer with softmax activation for classification
+
+3. **Training**: The model is trained using the training dataset for a specified number of epochs.
+
+4. **Prediction**: Once trained, the model can predict the class of new images.
+
 ## Model Architecture
+The CNN model consists of the following layers:
+- **Convolution Layer**: 32 filters, kernel size (3,3), ReLU activation
+- **Max Pooling Layer**: Pool size (2,2)
+- **Flatten Layer**
+- **Dense Layers**:
+  - Hidden layer with 300 units and ReLU activation
+  - Hidden layer with 150 units and ReLU activation
+  - Output layer with 4 units (for 4 classes) and softmax activation
 
-The CNN architecture consists of:
-
-- **Convolutional Layer**: 
-  - 32 filters of size 3x3, using ReLU activation.
-
-- **Max Pooling Layer**: 
-  - Pool size of 2x2 to reduce dimensionality.
-
-- **Flatten Layer**: 
-  - Converts 2D matrices to 1D.
-
-- **Dense Layers**: 
-  - Two hidden layers with 300 and 150 neurons respectively, followed by a softmax output layer for multi-class classification.
-
-# Training
-
+## Training
 The model is trained with the following parameters:
+- Optimizer: Adam
+- Loss function: Categorical Crossentropy
+- Metrics: Accuracy
 
-- **Optimizer:** Adam
+Training is done using the `fit_generator` method:
+```python
+model.fit_generator(xtrain, steps_per_epoch=len(xtrain), epochs=10, validation_data=xtest, validation_steps=len(xtest))
+```
 
-- **Loss Function:** Categorical Crossentropy
+## Prediction
+To make predictions on new images, use the following code snippet:
 
-- **Metrics:** Accuracy
- 
-- **Number of Epochs:** 10
+```python
+from tensorflow.keras.preprocessing import image
+import numpy as np
 
-# License
+img = image.load_img('path_to_your_image.jpeg', target_size=(64, 64))
+x = image.img_to_array(img)
+x = np.expand_dims(x, axis=0)
+pred = np.argmax(model.predict(x))
+op = ['bears', 'crows', 'elephants', 'rats']
+print(op[pred])
+```
 
-Copyright (c) [year] [your name or organization]
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-1. The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-2. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-
-
+## License
+This project is licensed under the MIT License .
